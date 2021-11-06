@@ -34,18 +34,20 @@ Note: If you have scripts, that might be useful to others, please send them as
 repository or share them in any other way that suits you.
 
 ## Installation
+* Get a python environment, e.g. via [mini-conda](https://docs.conda.io/en/latest/miniconda.html). 
+  If you never used python/conda environments before, please follow the instructions 
+  [here](https://mpicbg-scicomp.github.io/ipf_howtoguides/guides/Python_Conda_Environments) first.
+* Install [napari](https://github.com/napari/napari) using conda (seriously, don't use pip here, at least on Windows). 
 
-You can install `napari-script-editor` via [pip]:
+```
+conda install -c conda-forge napari
+```
 
-    pip install napari-script-editor
+Afterwards, install `napari-script-editor` using pip:
 
-
-
-To install latest development version :
-
-    conda install git
-    pip install git+https://github.com/haesleinhuepf/napari-script-editor.git
-
+```
+pip install napari-script-editor
+```
 
 ## Contributing
 
