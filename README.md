@@ -7,12 +7,31 @@
 [![codecov](https://codecov.io/gh/haesleinhuepf/napari-script-editor/branch/main/graph/badge.svg)](https://codecov.io/gh/haesleinhuepf/napari-script-editor)
 [![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-script-editor)](https://napari-hub.org/plugins/napari-script-editor)
 
-A python script editor for napari
+A python script editor for napari based on [PyQode](http://pyqode.github.io/pyQode/).
 
 ----------------------------------
 
 This [napari] plugin was generated with [Cookiecutter] using with [@napari]'s [cookiecutter-napari-plugin] template.
 
+![](docs/screenshot.png)
+
+## Usage
+
+Start the script editor from the menu `Tools > Scripts > Script Editor`. Use the auto-completion while typing, 
+check out the [napari tutorials](https://napari.org/tutorials/) and the
+[example scripts](https://github.com/haesleinhuepf/napari-script-editor/tree/main/example_scripts). 
+Use the `Run` button to execute a script.
+
+![](docs/type_and_run_screencast.gif)
+
+If you save the script to the folder ".napari-scripts" in your home directory, you will find the script in the 
+`Tools > Scripts` menu in napari. You can then also start it from there.
+
+![](docs/run_from_menu_screencast.gif)
+
+Note: If you have scripts, that might be useful to others, please send them as 
+[pull-request](https://github.com/haesleinhuepf/napari-script-editor/pulls) to the examples in 
+repository or share them in any other way that suits you.
 
 ## Installation
 
@@ -40,6 +59,7 @@ Distributed under the terms of the [BSD-3] license,
 ## Known issues
 
 * `napari-script-editor` depends on the auto-completion library `jedi<=0.17.2` in an slightly outdated version of [jedi](https://github.com/davidhalter/jedi). Thus, it is recommended to not use it in environments, where you also use jupyter-notebooks that may require a more recent version of `jedi`.
+* Sometimes, the script editor thinks, the file has been changed on disk and asks to reload it.
 
 ## Issues
 
