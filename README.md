@@ -61,7 +61,6 @@ Distributed under the terms of the [BSD-3] license,
 
 ## Known issues
 
-* `napari-script-editor` depends on the auto-completion library `jedi<=0.17.2` in an slightly outdated version of [jedi](https://github.com/davidhalter/jedi). Thus, it is recommended to not use it in environments, where you also use jupyter-notebooks that may require a more recent version of `jedi`.
 * Sometimes, the script editor thinks, the file has been changed on disk and asks to reload it.
 
 ## Issues
