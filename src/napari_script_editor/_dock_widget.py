@@ -14,10 +14,12 @@ from pyqode.python.backend import server
 from pyqode.python.widgets import PyCodeEdit
 from pyqode.python.widgets import code_edit
 
-from ._scripts_directory import _init_scripts_directory, _new_template_filename
+from ._scripts_directory import _init_scripts_directory, _new_template_filename, _exec_code
 import os
+from napari_tools_menu import register_dock_widget
 
-class ExampleQWidget(QWidget):
+@register_dock_widget(menu="Scripts > Script Editor")
+class ScriptEditor(QWidget):
     # your QWidget.__init__ can optionally request the napari viewer instance
     # in one of two ways:
     # 1. use a parameter called `napari_viewer`, as done here
@@ -25,7 +27,6 @@ class ExampleQWidget(QWidget):
     def __init__(self, napari_viewer):
         super().__init__()
         self.viewer = napari_viewer
-        #self._backend()
 
         wgt = QWidget()
         wgt.setLayout(QHBoxLayout())
@@ -75,19 +76,9 @@ class ExampleQWidget(QWidget):
             self.code_edit.file.save(filename)
 
     def _on_run_click(self):
-        code = self.code_edit.toPlainText()
-        globs = {"viewer": self.viewer}
-
-        exec(code, globs)
-    def _backend(self):
-        if not hasattr(ExampleQWidget, "backend"):
-            from pyqode.core import backend
-            backend.CodeCompletionWorker.providers.append(
-                backend.DocumentWordsProvider())
-            backend.serve_forever()
-            ExampleQWidget.backend = backend
+        _exec_code(self.code_edit.toPlainText(), self.viewer)
 
 @napari_hook_implementation
 def napari_experimental_provide_dock_widget():
     # you can return either a single widget, or a sequence of widgets
-    return [ExampleQWidget]
+    return [ScriptEditor]
