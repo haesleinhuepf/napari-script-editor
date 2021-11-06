@@ -43,6 +43,7 @@ You can install `napari-script-editor` via [pip]:
 
 To install latest development version :
 
+    conda install git
     pip install git+https://github.com/haesleinhuepf/napari-script-editor.git
 
 
