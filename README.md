@@ -13,7 +13,7 @@ A python script editor for napari based on [PyQode](http://pyqode.github.io/pyQo
 
 This [napari] plugin was generated with [Cookiecutter] using with [@napari]'s [cookiecutter-napari-plugin] template.
 
-![](docs/screenshot.png)
+![](https://github.com/haesleinhuepf/napari-script-editor/raw/main/docs/screenshot2.png)
 
 ## Usage
 
@@ -22,12 +22,12 @@ check out the [napari tutorials](https://napari.org/tutorials/) and the
 [example scripts](https://github.com/haesleinhuepf/napari-script-editor/tree/main/example_scripts). 
 Use the `Run` button to execute a script.
 
-![](docs/type_and_run_screencast.gif)
+![](https://github.com/haesleinhuepf/napari-script-editor/raw/main/docs/type_and_run_screencast.gif)
 
 If you save the script to the folder ".napari-scripts" in your home directory, you will find the script in the 
 `Tools > Scripts` menu in napari. You can then also start it from there.
 
-![](docs/run_from_menu_screencast.gif)
+![](https://github.com/haesleinhuepf/napari-script-editor/raw/main/docs/run_from_menu_screencast.gif)
 
 Note: If you have scripts, that might be useful to others, please send them as 
 [pull-request](https://github.com/haesleinhuepf/napari-script-editor/pulls) to the examples in 
