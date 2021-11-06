@@ -7,16 +7,13 @@ if 'viewer' not in globals():
 print("Hello world, napari has", len(viewer.layers), "layers")
 """
 
-
 def _init_scripts_directory():
-
+    """
+    Sets up the <home>/.napari-scripts folder. If it doesn't exist, it puts a template python file there.
+    """
     home_dir = os.path.expanduser('~')
     sub_dir = "/.napari-scripts/"
-
     scripts_dir = home_dir + sub_dir
-
-    print("home:", scripts_dir)
-
 
     if not os.path.isdir(scripts_dir):
         os.mkdir(scripts_dir)
@@ -31,18 +28,20 @@ def _new_template_filename():
     return '.new_template.py'
 
 def _search_scripts():
-    print("Searching for menus")
+    """
+    Searches scripts in the <home>/.napari-scripts folder and attaches them to the Tools > Scripts menu as actions
+    """
     file_list = os.listdir(_init_scripts_directory())
-    print("FL", file_list)
     files = [file for file in file_list if file.endswith(".py") and not file.startswith(".")]
-    print("FL2", files)
 
     for i in files:
         print(i)
         _register_menu(_init_scripts_directory() + i)
 
 def _register_menu(filename):
-
+    """
+    Adds a specific python file to the Tools > Scripts menu
+    """
     with open(filename) as f:
         lines = f.readlines()
     code = "\n".join(lines)
@@ -57,5 +56,8 @@ def _register_menu(filename):
     register_action(callback, "Scripts > " + menu)
 
 def _exec_code(code, viewer):
+    """
+    Executes given code and provides the viewer as global variable to that code.
+    """
     globs = {"viewer": viewer}
     exec(code, globs)
