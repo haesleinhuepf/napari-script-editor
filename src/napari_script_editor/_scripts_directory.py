@@ -1,7 +1,10 @@
 import os
 from napari_tools_menu import register_action
 
-CODE_TEMPLATE = """import napari
+CODE_TEMPLATE = """# This is a template script for the napari-script-editor.
+# See this folder for more examples:
+# https://github.com/haesleinhuepf/napari-script-editor/tree/main/example_scripts
+import napari
 if 'viewer' not in globals():
     viewer = napari.Viewer()
 print("Hello world, napari has", len(viewer.layers), "layers")
@@ -35,7 +38,6 @@ def _search_scripts():
     files = [file for file in file_list if file.endswith(".py") and not file.startswith(".")]
 
     for i in files:
-        print(i)
         _register_menu(_init_scripts_directory() + i)
 
 def _register_menu(filename):
@@ -50,8 +52,6 @@ def _register_menu(filename):
 
     def callback(viewer):
         _exec_code(code, viewer)
-
-    print("REG", menu)
 
     register_action(callback, "Scripts > " + menu)
 
