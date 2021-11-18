@@ -37,7 +37,7 @@ repository or share them in any other way that suits you.
 * Get a python environment, e.g. via [mini-conda](https://docs.conda.io/en/latest/miniconda.html). 
   If you never used python/conda environments before, please follow the instructions 
   [here](https://mpicbg-scicomp.github.io/ipf_howtoguides/guides/Python_Conda_Environments) first.
-* Install [napari](https://github.com/napari/napari) using conda (seriously, don't use pip here, at least on Windows). 
+* Install [napari](https://github.com/napari/napari) using conda. 
 
 ```
 conda install -c conda-forge napari
