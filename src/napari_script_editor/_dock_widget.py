@@ -74,18 +74,16 @@ class ScriptEditor(QWidget):
     def get_script_editor_from_viewer(cls, viewer, create_editor=True):
         result = None
         if hasattr(cls, "editors"):
-            print("Checking editors", cls.editors)
-
             # search for the last editor which was added
             for editor in cls.editors:
                 if editor._viewer is viewer:
-                    print("Found!")
                     result = editor
         if result is None:
             if create_editor:
-                print("Added!")
                 result = ScriptEditor(viewer)
-                viewer.window.add_dock_widget(result, area='right', name="Script editor")
+                w = viewer.window.add_dock_widget(result, area='right', name="Script editor")
+                w.setFloating(True)
+                w.resize(600, 400)
 
         return result
 
