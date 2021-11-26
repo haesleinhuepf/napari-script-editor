@@ -8,7 +8,7 @@
 [![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-script-editor)](https://napari-hub.org/plugins/napari-script-editor)
 
 A python script editor for napari based on [PyQode](http://pyqode.github.io/pyQode/).
-
+ 
 ----------------------------------
 
 This [napari] plugin was generated with [Cookiecutter] using with [@napari]'s [cookiecutter-napari-plugin] template.
