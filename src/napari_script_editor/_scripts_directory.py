@@ -1,5 +1,6 @@
 import os
 from napari_tools_menu import register_action
+from ._utils import write_text_file
 
 CODE_TEMPLATE = """# This is a template script for the napari-script-editor.
 # See this folder for more examples:
@@ -22,8 +23,7 @@ def _init_scripts_directory():
         os.mkdir(scripts_dir)
 
     if not os.path.isdir(scripts_dir + _new_template_filename()):
-        with open(scripts_dir + _new_template_filename(), 'w') as f:
-            f.write(CODE_TEMPLATE)
+        write_text_file(scripts_dir + _new_template_filename(), CODE_TEMPLATE)
 
     return scripts_dir
 

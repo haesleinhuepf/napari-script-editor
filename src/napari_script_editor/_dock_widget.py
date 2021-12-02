@@ -1,12 +1,12 @@
 from napari_plugin_engine import napari_hook_implementation
 from qtpy.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QFileDialog
 
-from pyqode.python.backend import server
-from pyqode.python.widgets import PyCodeEdit
+from pyzo.codeeditor import CodeEditor
 
 from ._scripts_directory import _init_scripts_directory, _new_template_filename, _exec_code
 import os
 from napari_tools_menu import register_dock_widget
+from ._utils import read_text_file, write_text_file
 
 @register_dock_widget(menu="Scripts > Script Editor")
 class ScriptEditor(QWidget):
@@ -37,26 +37,26 @@ class ScriptEditor(QWidget):
         self.setLayout(QVBoxLayout())
         self.layout().addWidget(wgt)
 
-        self._code_edit = PyCodeEdit(server_script=server.__file__)
+        self._code_edit = CodeEditor()
         self.layout().addWidget(self._code_edit)
 
-        self._code_edit.setStyleSheet("background-color: rgb(196, 196, 196);")
+        #self._code_edit.setStyleSheet("background-color: rgb(196, 196, 196);")
         self._on_new_click()
 
     def _on_new_click(self):
         new_template = _init_scripts_directory() + _new_template_filename()
-        self._code_edit.file.open(new_template)
+        self._code_edit.setPlainText(read_text_file(new_template))
 
     def _on_load_click(self):
         filename,_ = QFileDialog.getOpenFileName(parent=self, filter="*.py", directory=_init_scripts_directory())
         if os.path.isfile(filename):
-            self._code_edit.file.open(filename)
+            self._code_edit.setPlainText(read_text_file(filename))
 
     def _on_save_click(self):
         filename, _ = QFileDialog.getSaveFileName(parent=self, filter="*.py", directory=_init_scripts_directory())
 
         if isinstance(filename, str) and len(filename) > 0:
-            self._code_edit.file.save(filename)
+            write_text_file(filename, self._code_edit.toPlainText())
 
     def _on_run_click(self):
         _exec_code(self._code_edit.toPlainText(), self._viewer)
@@ -86,6 +86,7 @@ class ScriptEditor(QWidget):
                 w.resize(600, 400)
 
         return result
+
 
 @napari_hook_implementation
 def napari_experimental_provide_dock_widget():
