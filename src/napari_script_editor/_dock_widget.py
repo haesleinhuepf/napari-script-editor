@@ -1,5 +1,6 @@
 from napari_plugin_engine import napari_hook_implementation
-from qtpy.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QFileDialog
+from qtpy.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QFileDialog, QCheckBox
+from qtpy.QtCore import QTimer
 
 from pyqode.python.backend import server
 from pyqode.python.widgets import PyCodeEdit
@@ -34,6 +35,17 @@ class ScriptEditor(QWidget):
         btn.clicked.connect(self._on_run_click)
         wgt.layout().addWidget(btn)
 
+        recorder_avaliable = False
+        try:
+            import napari_time_slicer
+            recorder_avaliable = True
+        except:
+            pass
+
+        if recorder_avaliable:
+            chb_record = QCheckBox("Record")
+            wgt.layout().addWidget(chb_record)
+
         self.setLayout(QVBoxLayout())
         self.layout().addWidget(wgt)
 
@@ -42,6 +54,22 @@ class ScriptEditor(QWidget):
 
         self._code_edit.setStyleSheet("background-color: rgb(196, 196, 196);")
         self._on_new_click()
+
+        if recorder_avaliable:
+            #
+            self.timer = QTimer()
+            self.timer.setInterval(200)
+
+            @self.timer.timeout.connect
+            def update_recorded_code(*_):
+                if not chb_record.isChecked():
+                    return
+
+                from napari_time_slicer._workflow import WorkflowManager
+                complete_code = WorkflowManager.install(self._viewer).to_python_code()
+                self.set_code(complete_code)
+
+            self.timer.start()
 
     def _on_new_click(self):
         new_template = _init_scripts_directory() + _new_template_filename()
