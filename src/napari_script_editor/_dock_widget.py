@@ -11,7 +11,7 @@ from napari_tools_menu import register_dock_widget
 
 @register_dock_widget(menu="Scripts > Script Editor")
 class ScriptEditor(QWidget):
-    def __init__(self, napari_viewer):
+    def __init__(self, napari_viewer, _for_testing:bool = False):
         super().__init__()
         self._viewer = napari_viewer
         ScriptEditor._add_script_editor(self)
@@ -37,7 +37,7 @@ class ScriptEditor(QWidget):
 
         recorder_avaliable = False
         try:
-            import napari_time_slicer
+            import napari_workflows
             recorder_avaliable = True
         except:
             pass
@@ -55,7 +55,7 @@ class ScriptEditor(QWidget):
         self._code_edit.setStyleSheet("background-color: rgb(196, 196, 196);")
         self._on_new_click()
 
-        if recorder_avaliable:
+        if recorder_avaliable and not _for_testing:
             #
             self.timer = QTimer()
             self.timer.setInterval(200)
@@ -65,7 +65,7 @@ class ScriptEditor(QWidget):
                 if not chb_record.isChecked():
                     return
 
-                from napari_time_slicer._workflow import WorkflowManager
+                from napari_workflows import WorkflowManager
                 complete_code = WorkflowManager.install(self._viewer).to_python_code()
                 self.set_code(complete_code)
 
@@ -75,13 +75,15 @@ class ScriptEditor(QWidget):
         new_template = _init_scripts_directory() + _new_template_filename()
         self._code_edit.file.open(new_template)
 
-    def _on_load_click(self):
-        filename,_ = QFileDialog.getOpenFileName(parent=self, filter="*.py", directory=_init_scripts_directory())
+    def _on_load_click(self, filename:str = None):
+        if filename is None:
+            filename,_ = QFileDialog.getOpenFileName(parent=self, filter="*.py", directory=_init_scripts_directory())
         if os.path.isfile(filename):
             self._code_edit.file.open(filename)
 
-    def _on_save_click(self):
-        filename, _ = QFileDialog.getSaveFileName(parent=self, filter="*.py", directory=_init_scripts_directory())
+    def _on_save_click(self, filename:str = None):
+        if filename is None:
+            filename, _ = QFileDialog.getSaveFileName(parent=self, filter="*.py", directory=_init_scripts_directory())
 
         if isinstance(filename, str) and len(filename) > 0:
             self._code_edit.file.save(filename)
@@ -99,7 +101,7 @@ class ScriptEditor(QWidget):
         cls.editors.append(instance)
 
     @classmethod
-    def get_script_editor_from_viewer(cls, viewer, create_editor=True):
+    def get_script_editor_from_viewer(cls, viewer, create_editor=True, _for_testing:bool=False):
         result = None
         if hasattr(cls, "editors"):
             # search for the last editor which was added
@@ -108,7 +110,7 @@ class ScriptEditor(QWidget):
                     result = editor
         if result is None:
             if create_editor:
-                result = ScriptEditor(viewer)
+                result = ScriptEditor(viewer, _for_testing)
                 w = viewer.window.add_dock_widget(result, area='right', name="Script editor")
                 w.setFloating(True)
                 w.resize(600, 400)
