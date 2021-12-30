@@ -1,18 +1,29 @@
-import napari_script_editor
+from napari_script_editor import ScriptEditor
 import pytest
 
-# this is your plugin name declared in your napari.plugins entry point
-MY_PLUGIN_NAME = "napari-script-editor"
-# the name of your widget(s)
-MY_WIDGET_NAMES = ["Example Q Widget", "example_magic_widget"]
-
-
-@pytest.mark.parametrize("widget_name", MY_WIDGET_NAMES)
-def test_something_with_viewer(widget_name, make_napari_viewer, napari_plugin_manager):
-    napari_plugin_manager.register(napari_script_editor, name=MY_PLUGIN_NAME)
+def test_something_with_viewer(make_napari_viewer):
     viewer = make_napari_viewer()
+
+
+    script_editor = ScriptEditor.get_script_editor_from_viewer(viewer, _for_testing=True)
+
     num_dw = len(viewer.window._dock_widgets)
-    viewer.window.add_plugin_dock_widget(
-        plugin_name=MY_PLUGIN_NAME, widget_name=widget_name
+
+    script_editor = ScriptEditor(viewer, _for_testing = True)
+    viewer.window.add_dock_widget(
+        script_editor
     )
     assert len(viewer.window._dock_widgets) == num_dw + 1
+
+    script_editor._on_new_click()
+    script_editor._on_save_click("test.py")
+    script_editor._on_load_click("test.py")
+    script_editor._on_run_click()
+    script_editor.set_code("print('hello world')")
+
+    script_editor = ScriptEditor.get_script_editor_from_viewer(viewer, _for_testing=True)
+
+def test_scripts_directory():
+    from napari_script_editor._scripts_directory import _init_scripts_directory, _search_scripts
+    _init_scripts_directory()
+    _search_scripts()

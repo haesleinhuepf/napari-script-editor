@@ -80,3 +80,4 @@ target/
 
 .idea/
 venv/
+test.py
