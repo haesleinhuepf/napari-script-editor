@@ -7,7 +7,7 @@
 [![codecov](https://codecov.io/gh/haesleinhuepf/napari-script-editor/branch/main/graph/badge.svg)](https://codecov.io/gh/haesleinhuepf/napari-script-editor)
 [![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-script-editor)](https://napari-hub.org/plugins/napari-script-editor)
 
-A python script editor for napari based on [PyQode](http://pyqode.github.io/pyQode/).
+A python script editor for napari based on [haesleinhuepf's fork of PyQode](https://github.com/haesleinhuepf/pyqode.core).
 
 ----------------------------------
 
