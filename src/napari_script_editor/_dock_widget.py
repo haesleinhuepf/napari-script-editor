@@ -112,7 +112,8 @@ class ScriptEditor(QWidget):
             if create_editor:
                 result = ScriptEditor(viewer, _for_testing)
                 w = viewer.window.add_dock_widget(result, area='right', name="Script editor")
-                w.setFloating(True)
+                if not _for_testing:
+                    w.setFloating(True)
                 w.resize(600, 400)
 
         return result
