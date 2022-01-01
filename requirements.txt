@@ -2,5 +2,10 @@
 # Requirements of your napari plugin should be listed in setup.cfg
 # See also: https://caremad.io/posts/2013/07/setup-vs-requirement/
 
+napari
+haesleinhuepf-pyqode.core>=2.15.5
+haesleinhuepf-pyqode.python>=2.15.2
+napari-tools-menu
+jedi>=0.18.0
 napari-workflows
 -e .
