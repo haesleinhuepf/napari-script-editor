@@ -16,8 +16,8 @@ def test_something_with_viewer(make_napari_viewer):
     assert len(viewer.window._dock_widgets) == num_dw + 1
 
     script_editor._on_new_click()
-    script_editor._on_save_click("test.py")
-    script_editor._on_load_click("test.py")
+    script_editor._on_save_click(filename="test.py")
+    script_editor._on_load_click(filename="test.py")
     script_editor._on_run_click()
     script_editor.set_code("print('hello world')")
 

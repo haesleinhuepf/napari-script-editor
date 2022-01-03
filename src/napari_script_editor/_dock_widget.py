@@ -75,13 +75,13 @@ class ScriptEditor(QWidget):
         new_template = _init_scripts_directory() + _new_template_filename()
         self._code_edit.file.open(new_template)
 
-    def _on_load_click(self, filename:str = None):
+    def _on_load_click(self, event = None, filename:str = None):
         if filename is None:
             filename,_ = QFileDialog.getOpenFileName(parent=self, filter="*.py", directory=_init_scripts_directory())
         if os.path.isfile(filename):
             self._code_edit.file.open(filename)
 
-    def _on_save_click(self, filename:str = None):
+    def _on_save_click(self, event = None, filename:str = None):
         if filename is None:
             filename, _ = QFileDialog.getSaveFileName(parent=self, filter="*.py", directory=_init_scripts_directory())
 
