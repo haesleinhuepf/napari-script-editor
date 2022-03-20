@@ -92,7 +92,10 @@ class ScriptEditor(QWidget):
         _exec_code(self._code_edit.toPlainText(), self._viewer)
 
     def set_code(self, code):
-        self._code_edit.setPlainText(code)
+        if self._code_edit.toPlainText() != code:
+            self._code_edit.setPlainText(code)
+        else:
+            print("not changing code")
 
     @classmethod
     def _add_script_editor(cls, instance):
