@@ -93,9 +93,11 @@ class ScriptEditor(QWidget):
 
     def set_code(self, code):
         if self._code_edit.toPlainText() != code:
+            cursor_position = self._code_edit.textCursor().position()
             self._code_edit.setPlainText(code)
-        else:
-            print("not changing code")
+            cursor = self._code_edit.textCursor()
+            cursor.setPosition(cursor_position)
+            self._code_edit.setTextCursor(cursor)
 
     @classmethod
     def _add_script_editor(cls, instance):
