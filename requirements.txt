@@ -8,4 +8,5 @@ haesleinhuepf-pyqode.python>=2.15.2
 napari-tools-menu
 jedi>=0.18.0
 napari-workflows
+pyflakes<=2.4.0 # https://github.com/PyCQA/pyflakes/issues/733
 -e .
