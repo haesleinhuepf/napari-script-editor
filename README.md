@@ -33,6 +33,22 @@ Note: If you have scripts, that might be useful to others, please send them as
 [pull-request](https://github.com/haesleinhuepf/napari-script-editor/pulls) to the examples in 
 repository or share them in any other way that suits you.
 
+### chatGPT support
+
+In case [openAI API](https://openai.com/blog/openai-api) is installed, you find another button in the script editor to `Ask chatGPT`. 
+Enter a prompt in the script editor and click the button. The script editor will send the prompt to
+chatGPT and replace it with the answer. For example try entering:
+```python
+write python code for segmenting an image using these steps:
+    * Apply a Gaussian blur
+    * Threshold the image using Otsu's method
+    * apply connected component labeling
+```
+and it will replace it with code accordingly.
+
+![](https://github.com/haesleinhuepf/napari-script-editor/raw/main/docs/ask_chatgpt.gif)
+
+
 ## Installation
 * Get a python environment, e.g. via [mini-conda](https://docs.conda.io/en/latest/miniconda.html). 
   If you never used python/conda environments before, please follow the instructions 
