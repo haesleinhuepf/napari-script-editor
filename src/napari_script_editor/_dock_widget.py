@@ -13,6 +13,10 @@ from napari_tools_menu import register_dock_widget
 class ScriptEditor(QWidget):
     def __init__(self, napari_viewer, _for_testing:bool = False):
         super().__init__()
+
+        if 'QT_API' not in os.environ:
+            os.environ['QT_API'] = 'pyqt5'
+
         self._viewer = napari_viewer
         ScriptEditor._add_script_editor(self)
 
@@ -34,6 +38,14 @@ class ScriptEditor(QWidget):
         btn = QPushButton("Run")
         btn.clicked.connect(self._on_run_click)
         wgt.layout().addWidget(btn)
+
+        try:
+            import openai
+            btn = QPushButton("Ask chatGPT")
+            btn.clicked.connect(self._on_ask_chat_gpt_click)
+            wgt.layout().addWidget(btn)
+        except:
+            pass
 
         recorder_avaliable = False
         try:
@@ -62,8 +74,11 @@ class ScriptEditor(QWidget):
 
             @self.timer.timeout.connect
             def update_recorded_code(*_):
-                if not chb_record.isChecked():
-                    return
+                try:
+                    if not chb_record.isChecked():
+                        return
+                except:
+                    self.timer.stop()
 
                 from napari_workflows import WorkflowManager
                 complete_code = WorkflowManager.install(self._viewer).to_python_code()
@@ -90,6 +105,12 @@ class ScriptEditor(QWidget):
 
     def _on_run_click(self):
         _exec_code(self._code_edit.toPlainText(), self._viewer)
+
+    def _on_ask_chat_gpt_click(self):
+        from ._chatgpt import ask_chat_gpt
+        response = ask_chat_gpt(self._code_edit.textCursor().selectedText())
+        self._code_edit.textCursor().insertText(response)
+
 
     def set_code(self, code):
         if self._code_edit.toPlainText() != code:
