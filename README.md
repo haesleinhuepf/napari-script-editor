@@ -39,12 +39,12 @@ In case [openAI API](https://openai.com/blog/openai-api) is installed, you find 
 Enter a prompt in the script editor and click the button. The script editor will send the prompt to
 chatGPT and replace it with the answer. For example try entering:
 ```python
-write python code for segmenting an image using these steps:
+Write Python code for segmenting an image using these steps:
     * Apply a Gaussian blur
     * Threshold the image using Otsu's method
-    * apply connected component labeling
+    * Apply connected component labeling
 ```
-and it will replace it with code accordingly.
+and it will replace it with code accordingly. If it doesn't work in the first attempt, try again. ChatGPT's answers are not always the same.
 
 ![](https://github.com/haesleinhuepf/napari-script-editor/raw/main/docs/ask_chatgpt.gif)
 
